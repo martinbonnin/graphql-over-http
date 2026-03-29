@@ -254,9 +254,6 @@ A client MUST indicate the media types that it supports in responses using the
 The client MUST include the media type `application/graphql-response+json` in
 the `Accept` header.
 
-It is RECOMMENDED that the client set the `Accept` header to
-`application/graphql-response+json`.
-
 The client MAY additionally include the media type `application/json` in the
 `Accept` header. When accepting both media types, the client SHOULD indicate it
 prefers `application/graphql-response+json` over `application/json`.
