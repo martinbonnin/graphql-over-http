@@ -183,10 +183,10 @@ using the JSON encoding for GraphQL requests:
 
 And for a _GraphQL response_:
 
-| Name                                | Description                            |
-| ----------------------------------- | -------------------------------------- |
-| `application/graphql-response+json` | The preferred type for server responses |
-| `application/json`                  | An alternative type for responses       |
+| Name                                | Description                              |
+| ----------------------------------- | ---------------------------------------- |
+| `application/graphql-response+json` | The preferred type for server responses   |
+| `application/json`                  | An alternative type for responses         |
 
 For details of the shapes of these JSON payloads, please see
 [Request](#sec-Request) and [Response](#sec-Response).
