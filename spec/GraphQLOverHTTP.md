@@ -198,6 +198,10 @@ parameters in one of the manners described in this specification:
 Servers receiving a request with additional properties MUST ignore properties
 they do not understand.
 
+If implementers need to add additional information to a request, they MUST do so via other means; the
+RECOMMENDED approach is to add an implementer-scoped entry to the {extensions}
+object.
+
 Note: When comparing _GraphQL-over-HTTP request_ against the term
 ["request"](https://spec.graphql.org/draft/#request) in the GraphQL
 specification you should note the _GraphQL schema_ and "initial value" are not
@@ -255,7 +259,7 @@ URLSearchParams encoding specified above.
 Note: By the above, `operationName=null` represents an operation with the name
 `"null"` (such as `query null { __typename }`). 
 
-### Example
+### Examples
 
 If we wanted to execute the following GraphQL query:
 
@@ -275,16 +279,27 @@ This request could be sent via an HTTP GET as follows:
 http://example.com/graphql?query=query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname%7D%7D&variables=%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D
 ```
 
+An empty {operationName} is allowed. This is a valid request:
+
+```url example
+http://example.com/graphql?query=%7B%20foo%20%7D&operationName=
+```
+
 
 ## POST
 
-A GraphQL POST request instructs the server to perform a query or mutation
-operation. A GraphQL POST request MUST have a body which contains values of the
-_GraphQL-over-HTTP request_ parameters encoded in one of the officially
-recognized GraphQL media types, or another media type supported by the server.
+A GraphQL POST request MUST have a body which contains values of the
+_GraphQL-over-HTTP request_ parameters encoded using the `application/json` media type.
 
-For robustness, specifying `null` for optional request parameters is equivalent to not
-specifying them at all.
+The {query} parameter MUST be the string representation of the source text of
+the document as specified in
+[the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
+
+The {operationName} parameter, if present and not null, MUST be a string.
+
+Each of the {variables} and {extensions} parameters, if present and not null, MUST be a JSON object.
+
+For robustness, specifying null for optional request parameters is equivalent to not specifying them at all.
 
 A client MUST indicate the media type of a request body using the `Content-Type`
 header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
@@ -302,35 +317,6 @@ Note: Rejecting such requests encourages clients to supply a `Content-Type`
 header with every POST request. A server has the option to assume any media type
 they wish when none is supplied, with the understanding that parsing the request
 may fail.
-
-A server MAY support POST requests encoded with and/or accepting other media
-types or encodings.
-
-If a client does not know the media types the server supports then it SHOULD
-encode the request body in JSON (i.e. with `Content-Type: application/json`).
-
-Note: Request encoding with media type `application/json` is supported by every
-compliant _server_.
-
-### JSON Encoding
-
-When encoded in JSON, a _GraphQL-over-HTTP request_ is encoded as a JSON object
-(map), with the properties specified by the GraphQL-over-HTTP request:
-
-- {query} - the string representation of the Source Text of the Document as
-  specified in
-  [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
-- {operationName} - an optional string
-- {variables} - an optional object (map), the keys of which are the variable
-  names and the values of which are the variable values
-- {extensions} - an optional object (map) reserved for implementers to extend
-  the protocol however they see fit, as specified in
-  [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
-
-All other property names are reserved for future expansion. If implementers need
-to add additional information to a request they MUST do so via other means; the
-RECOMMENDED approach is to add an implementer-scoped entry to the {extensions}
-object.
 
 ### Example
 
