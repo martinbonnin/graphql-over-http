@@ -466,10 +466,6 @@ pass validation, then the server SHOULD reply with `400` status code.
 If the client is not permitted to issue the GraphQL request then the server
 SHOULD reply with `403`, `401` or similar appropriate status code.
 
-Note: Clients can rely on the response being a well-formed _GraphQL response_
-regardless of the status code. Intermediary servers may use the status code to
-determine the status of the _GraphQL response_ without needing to process the
-response body.
 
 ### Examples
 
@@ -559,6 +555,10 @@ The client MAY additionally include the media type `application/json` in the
 `Accept` header. When accepting both media types, the client SHOULD indicate it
 prefers `application/graphql-response+json` over `application/json`.
 
+Note: Clients can rely on the response being a well-formed _GraphQL response_
+regardless of the status code. Intermediary servers may use the status code to
+determine the status of the _GraphQL response_ without needing to process the
+response body.
 
 ## Security
 
