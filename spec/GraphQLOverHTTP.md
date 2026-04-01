@@ -24,14 +24,6 @@ The [GraphQL specification](https://spec.graphql.org) deliberately does not
 specify the transport layer; however, HTTP is the most common choice when
 serving GraphQL to remote clients due to its ubiquity.
 
-Previous to this specification, the article
-[Serving over HTTP](https://graphql.org/learn/serving-over-http)
-([WayBack Machine entry, 1st June 2022](https://web.archive.org/web/20220601155421/https://graphql.org/learn/serving-over-http))
-on the graphql.org website served as guidance, and leading implementations on
-both client and server have mostly upheld those best practices and thus
-established a de-facto standard that is commonly used throughout the ecosystem.
-This specification aims to codify and expand on this work.
-
 **Copyright notice**
 
 Copyright © 2022-present, GraphQL contributors
@@ -583,6 +575,17 @@ response; it still indicates successful execution.
 
 This section of the specification is non-normative, even where the words and
 phrases specified in RFC2119 are used.
+
+## Compatibility
+
+Previous to this specification, the article
+[Serving over HTTP](https://graphql.org/learn/serving-over-http)
+([WayBack Machine entry, 1st June 2022](https://web.archive.org/web/20220601155421/https://graphql.org/learn/serving-over-http))
+on the graphql.org website served as guidance. Leading implementations on
+both client and server have mostly upheld those best practices and thus
+established a de-facto standard commonly used throughout the ecosystem.
+
+
 
 ## Security
 
