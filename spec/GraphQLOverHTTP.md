@@ -232,12 +232,12 @@ The {query} parameter MUST be the string representation of the source text of
 the document as specified in
 [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
 
-The {operationName} parameter, if present, must be a string.
+The {operationName} parameter, if present, MUST be a string.
 
-Each of the {variables} and {extensions} parameters, if used, MUST be encoded as
-a JSON string.
+Each of the {variables} and {extensions} parameters, if present, MUST be encoded as
+a JSON object string.
 
-The {operationName} parameter, if supplied, represents
+The {operationName} parameter, if present, represents
 the name of the operation to be executed within the {query} as a string.
 
 Note: In the final URL all of these parameters will appear in the query
@@ -375,7 +375,7 @@ And the body:
 
 When a server receives a well-formed _GraphQL-over-HTTP request_, it must return
 a well‐formed _GraphQL response_. The server's response describes the result of
-validating and executing the requested operation if successful, and describes
+validating and executing the requested operation if successful and describes
 any errors encountered during the request.
 
 A server must comply with
