@@ -232,7 +232,7 @@ The {query} parameter MUST be the string representation of the source text of
 the document as specified in
 [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
 
-The {operationName} parameter, if present, MUST be a string.
+The {operationName} parameter, if present and not the empty string, MUST be a string.
 
 Each of the {variables} and {extensions} parameters, if present, MUST be encoded as
 a JSON object string.
@@ -241,6 +241,12 @@ For robustness, specifying the empty string for optional request parameters is e
 
 The {operationName} parameter, if present and not the empty string, represents
 the name of the operation to be executed within the {query} as a string.
+
+GET requests MUST NOT be used for executing mutation operations. If the values
+of {query} and {operationName} indicate that a mutation operation is to be
+executed, the server MUST respond with error status code `405` (Method Not
+Allowed) and halt execution. This restriction is necessary to conform with the
+long-established semantics of safe methods within HTTP.
 
 Note: In the final URL all of these parameters will appear in the query
 component of the request URL as URL-encoded values due to the WHATWG
@@ -269,11 +275,6 @@ This request could be sent via an HTTP GET as follows:
 http://example.com/graphql?query=query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname%7D%7D&variables=%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D
 ```
 
-GET requests MUST NOT be used for executing mutation operations. If the values
-of {query} and {operationName} indicate that a mutation operation is to be
-executed, the server MUST respond with error status code `405` (Method Not
-Allowed) and halt execution. This restriction is necessary to conform with the
-long-established semantics of safe methods within HTTP.
 
 ## POST
 
