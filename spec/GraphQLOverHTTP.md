@@ -195,6 +195,9 @@ parameters in one of the manners described in this specification:
   extend the protocol however they see fit, as specified in
   [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
 
+For robustness, specifying `null` for optional request parameters is equivalent to not
+specifying them at all.
+
 Note: When comparing _GraphQL-over-HTTP request_ against the term
 ["request"](https://spec.graphql.org/draft/#request) in the GraphQL
 specification you should note the _GraphQL schema_ and "initial value" are not
@@ -205,9 +208,6 @@ Note: Be aware that `query` is a misleading parameter name as its value is a
 string describing one or more operations, each of which may be a query or
 mutation. A better name would have been `document`, but the term `query` is well
 established.
-
-Note: For robustness, specifying `null` for optional request parameters is equivalent to not
-specifying them at all. For the map parameters, this is equivalent to specifying them as an empty map.
 
 Note: So long as it is a string, {query} does not have to parse or validate to
 be part of a well-formed _GraphQL-over-HTTP request_.
@@ -248,8 +248,7 @@ Setting the value of the {operationName} parameter to the empty string is
 equivalent to omitting the {operationName} parameter.
 
 Note: By the above, `operationName=null` represents an operation with the name
-`"null"` (such as `query null { __typename }`). If a literal `null` is desired,
-either omit {operationName} or set it to the empty string.
+`"null"` (such as `query null { __typename }`). 
 
 ### Example
 
