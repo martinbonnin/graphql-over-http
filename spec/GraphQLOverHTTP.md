@@ -195,9 +195,6 @@ parameters in one of the manners described in this specification:
   extend the protocol however they see fit, as specified in
   [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
 
-For robustness, specifying `null` for optional request parameters is equivalent to not
-specifying them at all.
-
 Servers receiving a request with additional properties MUST ignore properties
 they do not understand.
 
@@ -240,15 +237,14 @@ The {operationName} parameter, if present, MUST be a string.
 Each of the {variables} and {extensions} parameters, if present, MUST be encoded as
 a JSON object string.
 
-The {operationName} parameter, if present, represents
+For robustness, specifying the empty string for optional request parameters is equivalent to not specifying them at all.
+
+The {operationName} parameter, if present and not the empty string, represents
 the name of the operation to be executed within the {query} as a string.
 
 Note: In the final URL all of these parameters will appear in the query
 component of the request URL as URL-encoded values due to the WHATWG
 URLSearchParams encoding specified above.
-
-Setting the value of the {operationName} parameter to the empty string is
-equivalent to omitting the {operationName} parameter.
 
 Note: By the above, `operationName=null` represents an operation with the name
 `"null"` (such as `query null { __typename }`). 
@@ -285,6 +281,9 @@ A GraphQL POST request instructs the server to perform a query or mutation
 operation. A GraphQL POST request MUST have a body which contains values of the
 _GraphQL-over-HTTP request_ parameters encoded in one of the officially
 recognized GraphQL media types, or another media type supported by the server.
+
+For robustness, specifying `null` for optional request parameters is equivalent to not
+specifying them at all.
 
 A client MUST indicate the media type of a request body using the `Content-Type`
 header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
