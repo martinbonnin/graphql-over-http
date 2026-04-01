@@ -5,7 +5,6 @@ on:
 jobs:
   publish-pages:
     runs-on: ubuntu-latest
-    if: github.event.repository.fork == false
 
     # Required for the `deploy-pages` action
     permissions:
