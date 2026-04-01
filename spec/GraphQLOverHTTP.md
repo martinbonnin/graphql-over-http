@@ -198,6 +198,9 @@ parameters in one of the manners described in this specification:
 For robustness, specifying `null` for optional request parameters is equivalent to not
 specifying them at all.
 
+Servers receiving a request with additional properties MUST ignore properties
+they do not understand.
+
 Note: When comparing _GraphQL-over-HTTP request_ against the term
 ["request"](https://spec.graphql.org/draft/#request) in the GraphQL
 specification you should note the _GraphQL schema_ and "initial value" are not
@@ -328,9 +331,6 @@ All other property names are reserved for future expansion. If implementers need
 to add additional information to a request they MUST do so via other means; the
 RECOMMENDED approach is to add an implementer-scoped entry to the {extensions}
 object.
-
-Servers receiving a request with additional properties MUST ignore properties
-they do not understand.
 
 ### Example
 
