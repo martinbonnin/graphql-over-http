@@ -237,7 +237,7 @@ The {operationName} parameter, if present, must be a string.
 Each of the {variables} and {extensions} parameters, if used, MUST be encoded as
 a JSON string.
 
-The {operationName} parameter, if supplied and not the empty string, represents
+The {operationName} parameter, if supplied, represents
 the name of the operation to be executed within the {query} as a string.
 
 Note: In the final URL all of these parameters will appear in the query
