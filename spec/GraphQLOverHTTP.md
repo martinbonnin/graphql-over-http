@@ -206,10 +206,6 @@ string describing one or more operations, each of which may be a query or
 mutation. A better name would have been `document`, but the term `query` is well
 established.
 
-Note: An HTTP request that encodes parameters of the same names but of the wrong
-type, or that omits required parameters, is not a well-formed _GraphQL-over-HTTP
-request_.
-
 Note: Specifying `null` for optional request parameters is equivalent to not
 specifying them at all.
 
