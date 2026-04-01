@@ -162,31 +162,17 @@ http://example.com/product/graphql
 
 # Serialization Format
 
-The GraphQL specification allows for many
-[serialization formats to be implemented](https://spec.graphql.org/draft/#sec-Serialization-Format).
-Servers and clients MUST support JSON and MAY support other, additional
-serialization formats.
-
-For consistency and ease of notation, examples of the response are given in JSON
-throughout this specification.
+Servers and clients MUST support JSON as a serialization format.
 
 ## Media Types
 
-The following are the officially recognized GraphQL media types to designate
-using the JSON encoding for GraphQL requests:
 
-| Name               | Description                             |
-| ------------------ | --------------------------------------- |
-| `application/json` | Standard type for GraphQL JSON requests |
+The following are the officially recognized GraphQL media types:
 
-And for a _GraphQL response_:
-
-| Name                                | Description                             |
-| ----------------------------------- | --------------------------------------- |
-| `application/graphql-response+json` | The preferred type for server responses |
-
-Note: Servers MAY additionally support `application/json` as a response media
-type.
+| Name                                | Description                           |
+|-------------------------------------|---------------------------------------|
+| `application/json`                  | Media type for GraphQL JSON requests  |
+| `application/graphql-response+json` | Media type for GraphQL JSON responses |
 
 For details of the shapes of these JSON payloads, please see
 [Request](#sec-Request) and [Response](#sec-Response).
