@@ -206,8 +206,8 @@ string describing one or more operations, each of which may be a query or
 mutation. A better name would have been `document`, but the term `query` is well
 established.
 
-Note: Specifying `null` for optional request parameters is equivalent to not
-specifying them at all.
+Note: For robustness, specifying `null` for optional request parameters is equivalent to not
+specifying them at all. For the map parameters, this is equivalent to specifying them as an empty map.
 
 Note: So long as it is a string, {query} does not have to parse or validate to
 be part of a well-formed _GraphQL-over-HTTP request_.
