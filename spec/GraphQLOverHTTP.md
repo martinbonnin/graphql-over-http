@@ -117,6 +117,17 @@ interact with a _GraphQL service_.
 Note: GraphQL Subscriptions are beyond the scope of this specification at this
 time.
 
+# HTTP protocol
+
+A server MUST support the HTTP 1.1 protocol as described in
+[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+
+A server MAY support other versions of the HTTP protocol.
+
+This specification assumes that all versions of the HTTP protocol have "header",
+"Content-Type" and "status codes". These terms are to be interpreted according
+to their respective HTTP specification.
+
 # URL
 
 A _server_ MUST enable GraphQL requests to one or more GraphQL schemas.
@@ -246,8 +257,7 @@ be part of a well-formed _GraphQL-over-HTTP request_.
 ## Accept
 
 A client MUST indicate the media types that it supports in responses using the
-`Accept` HTTP header as specified in
-[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+`Accept` HTTP header.
 
 Note: If a client does not supply the `Accept` header then the server may
 respond with an error, or with any content type it chooses (including serving a
@@ -336,7 +346,7 @@ _GraphQL-over-HTTP request_ parameters encoded in one of the officially
 recognized GraphQL media types, or another media type supported by the server.
 
 A client MUST indicate the media type of a request body using the `Content-Type`
-header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+header.
 
 A server MUST support POST requests encoded with the `application/json` media
 type (as indicated by the `Content-Type` header) encoded with UTF-8.
