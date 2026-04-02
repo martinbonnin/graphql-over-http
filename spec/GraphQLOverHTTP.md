@@ -171,11 +171,6 @@ The GraphQL specification allows for many
 Servers and clients MUST support JSON and MAY support other, additional
 serialization formats.
 
-Note: Allowing other media types, particularly on requests, can be insecure.
-
-For consistency and ease of notation, examples of the response are given in JSON
-throughout this specification.
-
 ## Media Types
 
 The following are the officially recognized GraphQL media types:
@@ -363,10 +358,8 @@ encode the request body in JSON (i.e. with `Content-Type: application/json`).
 Note: Request encoding with media type `application/json` is supported by every
 compliant _server_.
 
-### JSON Encoding
-
-When encoded in JSON, a _GraphQL-over-HTTP request_ is encoded as a JSON object
-(map), with the properties specified by the GraphQL-over-HTTP request:
+A _GraphQL-over-HTTP request_ is encoded as a JSON object (map), with the
+properties specified by the GraphQL-over-HTTP request:
 
 - {query} - the string representation of the Source Text of the Document as
   specified in
