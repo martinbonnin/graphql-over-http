@@ -119,14 +119,17 @@ time.
 
 # HTTP protocol
 
-A server MUST support the HTTP 1.1 protocol as described in
+A server MUST comply with
+[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231) semantics. In this
+document, the words "header", "Content-Type" and "status code" refer to
 [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
-A server MAY support other versions of the HTTP protocol.
+A server MUST support at least one version of the HTTP message format, such as
+[1.1](https://datatracker.ietf.org/doc/html/rfc7230) or
+[2.0](https://www.rfc-editor.org/rfc/rfc9113).
 
-This specification assumes that all versions of the HTTP protocol have "header",
-"Content-Type" and "status codes". These terms are to be interpreted according
-to their respective HTTP specification.
+A server MAY support several versions of the HTTP message format for wider
+compatibility.
 
 # URL
 
