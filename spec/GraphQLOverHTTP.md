@@ -248,11 +248,9 @@ equivalent to not specifying them at all.
 The {operationName} parameter, if present and not the empty string, represents
 the name of the operation to be executed within the {query} as a string.
 
-GET requests MUST NOT be used for executing mutation operations. If the values
-of {query} and {operationName} indicate that a mutation operation is to be
-executed, the server MUST respond with error status code `405` (Method Not
-Allowed) and halt execution. This restriction is necessary to conform with the
-long-established semantics of safe methods within HTTP.
+GET requests MUST NOT be used for executing mutation operations. This
+restriction is necessary to conform with the long-established semantics of safe
+methods within HTTP.
 
 Note: In the final URL all of these parameters will appear in the query
 component of the request URL as URL-encoded values due to the WHATWG
@@ -316,6 +314,10 @@ indicating an encoding, the server MUST assume the encoding is `utf-8`.
 
 If the client does not supply a `Content-Type` header with a POST request, the
 server SHOULD reject the request using the appropriate `4xx` status code.
+
+If the values of {query} and {operationName} indicate that a mutation operation
+is to be executed with a GET request, the server MUST respond with error status
+code `405` (Method Not Allowed) and halt execution.
 
 Note: Rejecting such requests encourages clients to supply a `Content-Type`
 header with every POST request. A server has the option to assume any media type
