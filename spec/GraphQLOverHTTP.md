@@ -232,6 +232,13 @@ parameters in one of the manners described in this specification:
   extend the protocol however they see fit, as specified in
   [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
 
+Servers receiving a request with additional parameters MUST ignore parameters
+they do not understand.
+
+If implementers need to add additional information to a request they MUST do so
+via other means; the RECOMMENDED approach is to add an implementer-scoped entry
+to the {extensions} object.
+
 Note: When comparing _GraphQL-over-HTTP request_ against the term
 ["request"](https://spec.graphql.org/draft/#request) in the GraphQL
 specification you should note the _GraphQL schema_ and "initial value" are not
@@ -250,9 +257,6 @@ the same.
 Note: An HTTP request that encodes parameters of the same names but of the wrong
 type, or that omits required parameters, is not a well-formed _GraphQL-over-HTTP
 request_.
-
-Note: Specifying `null` for optional request parameters is equivalent to not
-specifying them at all.
 
 Note: So long as it is a string, {query} does not have to parse or validate to
 be part of a well-formed _GraphQL-over-HTTP request_.
@@ -296,20 +300,21 @@ The {query} parameter MUST be the string representation of the source text of
 the document as specified in
 [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
 
-The {operationName} parameter, if present, must be a string.
+The {operationName} parameter, if present and not the empty string, MUST be a
+string.
 
-Each of the {variables} and {extensions} parameters, if used, MUST be encoded as
-a JSON string.
+Each of the {variables} and {extensions} parameters, if present and not the
+empty string, MUST be encoded as a JSON string.
 
-The {operationName} parameter, if supplied and not the empty string, represents
+The {operationName} parameter, if present and not the empty string, represents
 the name of the operation to be executed within the {query} as a string.
+
+For robustness, specifying the empty string for optional parameters is
+equivalent to not specifying them at all.
 
 Note: In the final URL all of these parameters will appear in the query
 component of the request URL as URL-encoded values due to the WHATWG
 URLSearchParams encoding specified above.
-
-Setting the value of the {operationName} parameter to the empty string is
-equivalent to omitting the {operationName} parameter.
 
 Note: By the above, `operationName=null` represents an operation with the name
 `"null"` (such as `query null { __typename }`). If a literal `null` is desired,
@@ -389,13 +394,8 @@ When encoded in JSON, a _GraphQL-over-HTTP request_ is encoded as a JSON object
   the protocol however they see fit, as specified in
   [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
 
-All other property names are reserved for future expansion. If implementers need
-to add additional information to a request they MUST do so via other means; the
-RECOMMENDED approach is to add an implementer-scoped entry to the {extensions}
-object.
-
-Servers receiving a request with additional properties MUST ignore properties
-they do not understand.
+For robustness, specifying {null} for optional request parameters is equivalent
+to not specifying them at all.
 
 ### Example
 
