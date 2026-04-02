@@ -538,27 +538,65 @@ response; it still indicates successful execution.
 This section of the specification is non-normative, even where the words and
 phrases specified in RFC2119 are used.
 
-## Compatibility
+## `application/json` response media type
 
 Previous to this specification, the article
 [Serving over HTTP](https://graphql.org/learn/serving-over-http)
 ([WayBack Machine entry, 1st June 2022](https://web.archive.org/web/20220601155421/https://graphql.org/learn/serving-over-http))
-on the graphql.org website served as guidance. Leading implementations on
-both client and server have mostly upheld those best practices and thus
-established a de-facto standard commonly used throughout the ecosystem.
+on the graphql.org website served as guidance. 
+
+This article used `application/json` as media type for the response.
+
+In some cases, the response received by a client may not originate from a
+GraphQL service, but instead from an intermediary—such as an API gateway, proxy,
+firewall or other middleware—that does not implement this specification. Such an
+intermediary might produce the response to indicate an error, returning a
+response with `4xx` or `5xx` status code and potentially using the standard
+`application/json` media type to encode the reason for the error. Such a
+response is unlikely to be a valid GraphQL response.
+
+For this reason, a client application receiving an `application/json` response, could rely on the response being a
+well-formed _GraphQL response_ only if the status code is `200`.
+
+This caused multiple observability issues because it was challenging to distinguish a well-formed _GraphQL response_ from an intermediary response.  
+
+For compatibility reasons, clients and servers may support `application/json` as described in this section.
 
 Note: Servers may wish to only support the `application/graphql-response+json`
 media type so that related HTTP tooling may utilize the HTTP status codes of
 responses without having to be GraphQL-aware.
 
-The client MAY additionally include the media type `application/json` in the
-`Accept` header. When accepting both media types, the client SHOULD indicate it
-prefers `application/graphql-response+json` over `application/json`.
+### Accept
 
-Note: Clients can rely on the response being a well-formed _GraphQL response_
-regardless of the status code. Intermediary servers may use the status code to
-determine the status of the _GraphQL response_ without needing to process the
-response body.
+To maximize compatibility, a client MAY include the media type `application/json` in the
+`Accept` header. When doing this, it is RECOMMENDED that the client set the `Accept` header to
+`application/graphql-response+json, application/json;q=0.9`.
+
+Note: The `q=0.9` parameter tells content negotiation that `application/json`
+should only be used if `application/graphql-response+json` is not supported.
+
+### Status code
+
+When using the `application/json` media type, the server SHOULD use the `200` status code for every response to a well-formed
+_GraphQL-over-HTTP request_, independent of any _GraphQL request error_ or
+_GraphQL field error_ raised.
+
+If the response uses a non-`200` status code then the client MUST NOT rely on
+the body to be a well-formed _GraphQL response_.
+
+If the _GraphQL response_ contains a non-null {data} entry then the server MUST
+use the `200` status code.
+
+Note: This indicates that no _GraphQL request error_ was raised, though one or
+more _GraphQL field error_ may have been raised this is still a successful
+execution - see "partial response" in the GraphQL specification.
+
+The server SHOULD NOT use a `4xx` or `5xx` status code for a response to a
+well-formed _GraphQL-over-HTTP request_.
+
+If the URL is not used for other purposes, the server SHOULD use a `4xx` status
+code to respond to a request that is not a well-formed _GraphQL-over-HTTP
+request_.
 
 ## Security
 
