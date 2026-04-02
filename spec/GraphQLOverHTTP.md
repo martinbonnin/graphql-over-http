@@ -290,8 +290,8 @@ the document as specified in
 The {operationName} parameter, if present and not the empty string, MUST be a
 string.
 
-Each of the {variables} and {extensions} parameters, if present and not the empty string, MUST be encoded as
-a JSON string.
+Each of the {variables} and {extensions} parameters, if present and not the
+empty string, MUST be encoded as a JSON string.
 
 The {operationName} parameter, if present and not the empty string, represents
 the name of the operation to be executed within the {query} as a string.
@@ -381,8 +381,8 @@ When encoded in JSON, a _GraphQL-over-HTTP request_ is encoded as a JSON object
   the protocol however they see fit, as specified in
   [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
 
-For robustness, specifying {null} for optional request parameters is equivalent to
-not specifying them at all.
+For robustness, specifying {null} for optional request parameters is equivalent
+to not specifying them at all.
 
 ### Example
 
