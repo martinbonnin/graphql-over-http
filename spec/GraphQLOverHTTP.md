@@ -542,7 +542,7 @@ response; it still indicates successful execution.
 This section of the specification is non-normative, even where the words and
 phrases specified in RFC2119 are used.
 
-## `application/json` response media type
+## application/json response media type
 
 Previous to this specification, the article
 [Serving over HTTP](https://graphql.org/learn/serving-over-http)
