@@ -161,7 +161,7 @@ Servers and clients MUST support JSON as a serialization format.
 The following are the officially recognized GraphQL media types:
 
 | Name                                | Description                           |
-|-------------------------------------|---------------------------------------|
+| ----------------------------------- | ------------------------------------- |
 | `application/json`                  | Media type for GraphQL JSON requests  |
 | `application/graphql-response+json` | Media type for GraphQL JSON responses |
 
@@ -198,9 +198,9 @@ parameters in one of the manners described in this specification:
 Servers receiving a request with additional properties MUST ignore properties
 they do not understand.
 
-If implementers need to add additional information to a request they MUST do so via other means; the
-RECOMMENDED approach is to add an implementer-scoped entry to the {extensions}
-object.
+If implementers need to add additional information to a request they MUST do so
+via other means; the RECOMMENDED approach is to add an implementer-scoped entry
+to the {extensions} object.
 
 Note: When comparing _GraphQL-over-HTTP request_ against the term
 ["request"](https://spec.graphql.org/draft/#request) in the GraphQL
@@ -236,12 +236,14 @@ The {query} parameter MUST be the string representation of the source text of
 the document as specified in
 [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
 
-The {operationName} parameter, if present and not the empty string, MUST be a string.
+The {operationName} parameter, if present and not the empty string, MUST be a
+string.
 
-Each of the {variables} and {extensions} parameters, if present, MUST be encoded as
-a JSON object string.
+Each of the {variables} and {extensions} parameters, if present, MUST be encoded
+as a JSON object string.
 
-For robustness, specifying the empty string for optional request parameters is equivalent to not specifying them at all.
+For robustness, specifying the empty string for optional request parameters is
+equivalent to not specifying them at all.
 
 The {operationName} parameter, if present and not the empty string, represents
 the name of the operation to be executed within the {query} as a string.
@@ -257,7 +259,7 @@ component of the request URL as URL-encoded values due to the WHATWG
 URLSearchParams encoding specified above.
 
 Note: By the above, `operationName=null` represents an operation with the name
-`"null"` (such as `query null { __typename }`). 
+`"null"` (such as `query null { __typename }`).
 
 ### Examples
 
@@ -285,11 +287,11 @@ An empty {operationName} is allowed. This is a valid request:
 http://example.com/graphql?query=%7B%20foo%20%7D&operationName=
 ```
 
-
 ## POST
 
 A GraphQL POST request MUST have a body which contains values of the
-_GraphQL-over-HTTP request_ parameters encoded using the `application/json` media type.
+_GraphQL-over-HTTP request_ parameters encoded using the `application/json`
+media type.
 
 The {query} parameter MUST be the string representation of the source text of
 the document as specified in
@@ -297,9 +299,11 @@ the document as specified in
 
 The {operationName} parameter, if present and not null, MUST be a string.
 
-Each of the {variables} and {extensions} parameters, if present and not null, MUST be a JSON object.
+Each of the {variables} and {extensions} parameters, if present and not null,
+MUST be a JSON object.
 
-For robustness, specifying null for optional request parameters is equivalent to not specifying them at all.
+For robustness, specifying null for optional request parameters is equivalent to
+not specifying them at all.
 
 A client MUST indicate the media type of a request body using the `Content-Type`
 header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
@@ -361,8 +365,8 @@ And the body:
 
 When a server receives a well-formed _GraphQL-over-HTTP request_, it must return
 a well‐formed _GraphQL response_. The server's response describes the result of
-validating and executing the requested operation if successful and describes
-any errors encountered during the request.
+validating and executing the requested operation if successful and describes any
+errors encountered during the request.
 
 A server must comply with
 [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
@@ -451,7 +455,8 @@ server SHOULD reply with a `2xx` status code.
 
 Note: Using `4xx` and `5xx` status codes in this situation is not recommended -
 since no _GraphQL request error_ has occurred it is seen as a "partial
-response". This is typically the case if an error is propagated to the root field.
+response". This is typically the case if an error is propagated to the root
+field.
 
 If the _GraphQL response_ does not contain the {data} entry then the server MUST
 reply with a `4xx` or `5xx` status code as appropriate.
@@ -465,7 +470,6 @@ pass validation, then the server SHOULD reply with `400` status code.
 
 If the client is not permitted to issue the GraphQL request then the server
 SHOULD reply with `403`, `401` or similar appropriate status code.
-
 
 ### Examples
 
@@ -543,7 +547,7 @@ phrases specified in RFC2119 are used.
 Previous to this specification, the article
 [Serving over HTTP](https://graphql.org/learn/serving-over-http)
 ([WayBack Machine entry, 1st June 2022](https://web.archive.org/web/20220601155421/https://graphql.org/learn/serving-over-http))
-on the graphql.org website served as guidance. 
+on the graphql.org website served as guidance.
 
 This article used `application/json` as media type for the response.
 
@@ -555,12 +559,15 @@ response with `4xx` or `5xx` status code and potentially using the standard
 `application/json` media type to encode the reason for the error. Such a
 response is unlikely to be a valid GraphQL response.
 
-For this reason, a client application receiving an `application/json` response, could rely on the response being a
-well-formed _GraphQL response_ only if the status code is `200`.
+For this reason, a client application receiving an `application/json` response,
+could rely on the response being a well-formed _GraphQL response_ only if the
+status code is `200`.
 
-This caused multiple observability issues because it was challenging to distinguish a well-formed _GraphQL response_ from an intermediary response.  
+This caused multiple observability issues because it was challenging to
+distinguish a well-formed _GraphQL response_ from an intermediary response.
 
-For compatibility reasons, clients and servers may support `application/json` as described in this section.
+For compatibility reasons, clients and servers may support `application/json` as
+described in this section.
 
 Note: Servers may wish to only support the `application/graphql-response+json`
 media type so that related HTTP tooling may utilize the HTTP status codes of
@@ -568,8 +575,9 @@ responses without having to be GraphQL-aware.
 
 ### Accept
 
-To maximize compatibility, a client MAY include the media type `application/json` in the
-`Accept` header. When doing this, it is RECOMMENDED that the client set the `Accept` header to
+To maximize compatibility, a client MAY include the media type
+`application/json` in the `Accept` header. When doing this, it is RECOMMENDED
+that the client set the `Accept` header to
 `application/graphql-response+json, application/json;q=0.9`.
 
 Note: The `q=0.9` parameter tells content negotiation that `application/json`
@@ -577,9 +585,9 @@ should only be used if `application/graphql-response+json` is not supported.
 
 ### Status code
 
-When using the `application/json` media type, the server SHOULD use the `200` status code for every response to a well-formed
-_GraphQL-over-HTTP request_, independent of any _GraphQL request error_ or
-_GraphQL field error_ raised.
+When using the `application/json` media type, the server SHOULD use the `200`
+status code for every response to a well-formed _GraphQL-over-HTTP request_,
+independent of any _GraphQL request error_ or _GraphQL field error_ raised.
 
 If the response uses a non-`200` status code then the client MUST NOT rely on
 the body to be a well-formed _GraphQL response_.
