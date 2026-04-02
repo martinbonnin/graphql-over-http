@@ -120,9 +120,7 @@ time.
 # HTTP protocol
 
 A server MUST comply with
-[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231) semantics. In this
-document, the words "header", "Content-Type" and "status code" refer to
-[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231) semantics.
 
 A server MUST support at least one version of the HTTP message format, such as
 [1.1](https://datatracker.ietf.org/doc/html/rfc7230) or
@@ -260,7 +258,8 @@ be part of a well-formed _GraphQL-over-HTTP request_.
 ## Accept
 
 A client MUST indicate the media types that it supports in responses using the
-`Accept` HTTP header.
+`Accept` HTTP header as specified in
+[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
 Note: If a client does not supply the `Accept` header then the server may
 respond with an error, or with any content type it chooses (including serving a
@@ -349,7 +348,7 @@ _GraphQL-over-HTTP request_ parameters encoded in one of the officially
 recognized GraphQL media types, or another media type supported by the server.
 
 A client MUST indicate the media type of a request body using the `Content-Type`
-header.
+header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
 A server MUST support POST requests encoded with the `application/json` media
 type (as indicated by the `Content-Type` header) encoded with UTF-8.
