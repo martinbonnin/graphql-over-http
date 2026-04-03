@@ -436,6 +436,9 @@ one of the media types it has requested, hence `406 Not Acceptable` being the
 recommended response. However, the server authors may know better about the
 specific clients consuming their endpoint, thus both approaches are permitted.
 
+A server MUST support responses using at least one of the official GraphQL
+response media types.
+
 ## Validation
 
 Validation of a well-formed _GraphQL-over-HTTP request_ SHOULD apply all the
